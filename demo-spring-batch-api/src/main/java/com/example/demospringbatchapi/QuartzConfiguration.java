@@ -7,24 +7,21 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class QuartzConfiguration {
-
     @Bean
-    public JobDetail quartzJobDetail(){
-        return JobBuilder.newJob().storeDurably().build();
+    public JobDetail quartzJobDetail() {
+        return JobBuilder.newJob((Class<? extends Job>) BatchScheduleJob.class).storeDurably().build();
     }
 
-
     @Bean
-    public Trigger jobTrigger(){
+    public Trigger jobTrigger() {
         SimpleScheduleBuilder scheduleBuilder = SimpleScheduleBuilder
                 .simpleSchedule()
                 .withIntervalInSeconds(5)
                 .withRepeatCount(4);
-                 return TriggerBuilder
-                         .newTrigger()
-                         .forJob(quartzJobDetail())
-                         .withSchedule(scheduleBuilder)
-                         .build();
+        return TriggerBuilder
+                .newTrigger()
+                .forJob(quartzJobDetail())
+                .withSchedule(scheduleBuilder)
+                .build();
     }
-
 }
