@@ -1,5 +1,6 @@
 package com.example.demospringbatchapi.controller;
 
+import com.example.demospringbatchapi.JobLaunchRequest;
 import org.springframework.batch.core.ExitStatus;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobParameters;
@@ -25,13 +26,13 @@ public class JobLaunchingController {
     @Autowired
     private ApplicationContext context;
 
-//    @PostMapping(path = "/run")
-//    public ExitStatus runJob(@RequestBody JobLaunchRequest request) throws Exception{
-//        Job job = this.context.getBean(request.getName(), Job.class);
-//        JobParameters jobParameters = new JobParametersBuilder(request.getJobParameters(),
-//                this.jobExplorer).getNextJobParameters(job)
-//                .toJobParameters();
-//        return this.jobLauncher.run(job, jobParameters).getExitStatus();
-//    }
+    @PostMapping(path = "/run")
+    public ExitStatus runJob(@RequestBody JobLaunchRequest request) throws Exception{
+        Job job = this.context.getBean(request.getName(), Job.class);
+        JobParameters jobParameters = new JobParametersBuilder(request.getJobParameters(),
+                this.jobExplorer).getNextJobParameters(job)
+                .toJobParameters();
+        return this.jobLauncher.run(job, jobParameters).getExitStatus();
+    }
 
 }
