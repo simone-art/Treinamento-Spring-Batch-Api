@@ -26,7 +26,7 @@ public class BatchConfiguration {
     //RunIdIncrementer permite múltiplas execuções
     @Bean
     public Job job(){
-     return this.jobBuilderFactory.get("JobRestService")
+     return this.jobBuilderFactory.get("jobQuartz")
              .incrementer(new RunIdIncrementer())
              .start(step1())
              .build();
